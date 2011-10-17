@@ -1,0 +1,7 @@
+* {
+	font-family: Ubuntu, Calibri, Arial, Helvetica, sans-serif;
+}
+
+select.foo {
+	width: 200px;
+}
