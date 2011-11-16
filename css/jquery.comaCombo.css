@@ -15,10 +15,6 @@
 	cursor: pointer;
 }
 
-.comaCombo select {
-	display: none;
-}
-
 .comaCombo u {
 	display: inline-block;
 	padding: 0 20px 0 0;
@@ -47,7 +43,7 @@
 	text-decoration: none;
 }
 
-.comaCombo span {
+.comaComboOpciones {
 	display: block;
 	position: absolute;
 	top: 100%;
@@ -55,12 +51,12 @@
 	width: 100%;
 }
 
-.comaCombo em{
+.comaComboOpciones em{
 	display: block;
 	padding: 0 5px;
 }
 
-.comaCombo i {
+.comaComboOpciones i {
 	display: block;
 	border: 1px solid #cdcdcd;
 	border-top: none;
@@ -70,7 +66,7 @@
 	font-style: normal;
 }
 
-.comaCombo a {
+.comaComboOpciones a {
 	display: block;
 	padding: 5px;
 	margin: 0;
@@ -81,11 +77,11 @@
 	background: #fff;
 }
 
-.comaCombo a:hover {
+.comaComboOpciones a:hover {
 	color: #fff;
 	background: #39f;
 }
 
-.comaCombo a+a {
+.comaComboOpciones a+a {
 	border-top: 1px solid #eee;
 }

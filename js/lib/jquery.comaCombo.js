@@ -1,7 +1,5 @@
 (function($){
 
-	var mobile = navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i);
-
 	$.fn.comaCombo = function(){
 	
 		var args = Array.prototype.slice.call(arguments);
@@ -26,12 +24,13 @@
 			this.each(function(){
 
 				var select = $(this);
-				var fake = $('<span class="comaCombo"><u><b><s></s></b></u><span><em><i></i></em></span></span>');
-				var label = fake.find('b');
-				var opciones = fake.find('span');
+				var fake = $('<span class="comaCombo"><u><b><s></s></b></u></span>');
+				var label = fake.find('b')
 				var lock = false;
 				
 				fake.insertAfter(select);
+				
+				select.appendTo(fake);
 				
 				var width = select.outerWidth() - fake.outerWidth() + label.outerWidth();
 				
@@ -43,14 +42,17 @@
 				
 				label.width(width);
 				
-				select.hide();
-				opciones.slideUp(0);
+				select
+				.change(setLabel)
+				.css({
+					position: 'absolute',
+					top: '1px',
+					left: '3px',
+					opacity: 0,
+					zIndex: 1
+				});
 				
-				fake
-				.click(open)
-				.mouseleave(close);
-				
-				load();
+				setLabel();
 				
 				function setLabel() {
 				
@@ -58,74 +60,6 @@
 				
 				}
 
-				function load() {
-				
-					var html = '';
-					
-					select.children().each(function(){
-
-						html += '<a href="#" rel="' + this.value + '">' + $(this).text() + '</a>';
-
-					});
-					
-					opciones
-					.find('i')
-					.html(html)
-					.find('a')
-					.click(change);
-					
-					setLabel();
-				
-				}
-				
-				function open(event) {
-				
-					if(!lock) {
-				
-						opciones.slideDown(250);
-						fake.css('z-index', z++);
-						
-						if(z >= settings.zMax) {
-						
-							z = settings.zMin;
-						
-						}
-						
-					}
-				
-				}
-				
-				function close(event) {
-					
-					if(!lock) {
-					
-						opciones.slideUp(250);
-						
-					}
-				
-				}
-				
-				function change(event) {
-				
-					event.preventDefault();
-					$(this).blur();
-					
-					lock = true;
-					
-					select
-					.val(this.rel)
-					.change();
-					
-					setLabel();
-					
-					opciones.slideUp(250, function() {
-					
-						lock = false;
-					
-					});
-				
-				}
-				
 				var api = {
 					update: function(a) {
 					
@@ -150,7 +84,6 @@
 								
 								select.html(html);
 								select.val(v);
-								load();
 							
 							} else {
 							
@@ -159,18 +92,14 @@
 							
 							}
 						
-						} else {
-						
-							load();
-						
 						}
 					
 					},
 					remove: function() {
 						
-						select.show();
+						/*select.show();
 						select.removeData('comaCombo');
-						fake.remove();
+						fake.remove();*/
 						
 					}
 				};
