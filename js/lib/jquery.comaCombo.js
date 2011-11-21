@@ -65,10 +65,10 @@
 					
 						if(a != undefined) {
 						
+							var html = '';
+							var v;
+						
 							if(a instanceof Array) {
-							
-								var html = '';
-								var v;
 								
 								$.each(a, function(i) {
 								
@@ -84,7 +84,23 @@
 								
 								select.html(html);
 								select.val(v);
+							} else if (a instanceof Object) {
+								
+								var selected = select.find(':selected').val();
+								$.each(a, function(value, label) {
 							
+									html += '<option value="' + value + '">' + label + '</option>';
+									
+									if(selected == value) {
+									
+										v = value;
+									
+									}
+								
+								});
+								
+								select.html(html);
+								select.val(v);
 							} else {
 							
 								select.val(a);
@@ -115,3 +131,9 @@
 	}
 
 })(jQuery);
+
+$(function() {
+	
+	$('select').comaCombo();
+	
+});
